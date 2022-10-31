@@ -1,0 +1,78 @@
+version: '3'
+services:
+
+## Router
+  mongos01:
+    image: mongo:latest
+
+    restart: unless-stopped
+    container_name: mongos01
+    command: mongos --port 27019 --configdb rs-config-server/configsvr01:27018 --bind_ip_all --keyFile /mongodb.key
+
+
+ 
+    ports:
+      - 27019:27019
+    volumes:
+      - ./data/mongos/db:/data/db
+      - ./data/mongos/configdb:/data/configdb
+      - ./mongodb.key:/mongodb.key
+      - ./scripts:/scripts
+    networks:
+      default:
+        ipv4_address: 172.18.0.2
+
+
+## Config Servers
+  configsvr01:
+    image: mongo:latest
+    restart: unless-stopped
+    container_name: configsvr-01
+    command: mongod --auth --port 27018 --configsvr --replSet rs-config-server --bind_ip_all --keyFile /mongodb.key
+
+
+    volumes:
+      - ./mongo-configserver.init.js:/mongo-configserver.init.js
+      - ./data/configserver/db:/data/db
+      - ./data/configserver/configdb:/data/configdb
+      - ./mongodb.key:/mongodb.key
+      - ./scripts:/scripts
+    ports:
+      - 27018:27018
+    networks:
+      default:
+        ipv4_address: 172.18.0.5
+
+
+## Shards
+
+   
+  mongod01:
+    image: mongo:latest
+
+    restart: unless-stopped
+    container_name: mongod-01
+    command: mongod --auth --port 27017 --shardsvr --replSet rs-shard-01 --bind_ip_all --keyFile /mongodb.key
+
+
+    volumes:
+      - ./data/mongod/db:/data/db
+      - ./data/mongod/configdb:/data/configdb
+      - ./mongodb.key:/mongodb.key
+      - ./scripts:/scripts
+    ports:
+      - 27017:27017
+
+
+    networks:
+      default:
+        ipv4_address: 172.18.0.8
+ 
+
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.1/24
