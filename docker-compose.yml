@@ -7,7 +7,7 @@ services:
 
     restart: unless-stopped
     container_name: mongos01
-    command: mongos --port 27019 --configdb rs-config-server/configsvr01:27018 --bind_ip_all --keyFile /mongodb.key
+    command: mongos --port 27019 --configdb rs-config-server/configsvr01:27018 --bind_ip_all 
 
 
  
@@ -28,7 +28,7 @@ services:
     image: mongo:latest
     restart: unless-stopped
     container_name: configsvr-01
-    command: mongod --auth --port 27018 --configsvr --replSet rs-config-server --bind_ip_all --keyFile /mongodb.key
+    command: mongod --port 27018 --configsvr --replSet rs-config-server --bind_ip_all 
 
 
     volumes:
@@ -52,7 +52,7 @@ services:
 
     restart: unless-stopped
     container_name: mongod-01
-    command: mongod --auth --port 27017 --shardsvr --replSet rs-shard-01 --bind_ip_all --keyFile /mongodb.key
+    command: mongod --port 27017 --shardsvr --replSet rs-shard-01 --bind_ip_all
 
 
     volumes:
