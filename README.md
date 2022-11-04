@@ -2,7 +2,7 @@
 
 **Introduction**
 you can use this cluster in different servers for high avability  
-just make sure all be in same network.
+just make sure all servers be in same network.
 
 
 
