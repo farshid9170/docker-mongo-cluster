@@ -8,7 +8,7 @@ chown 999:999 mongodb.key
 docker-compose up -d
 
 
-docker-compose exec mongod01 sh -c "mongosh < /scripts/init-shard.js"
+docker-compose exec mongod01 sh -c "mongosh -port 27017 < /scripts/init-shard.js"
 
 docker-compose exec configsvr01 sh -c "mongosh -port 27018 < /scripts/init-configserver.js"
 
