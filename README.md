@@ -2,17 +2,18 @@
 
 **Introduction**
 
-in this project we clustred 3 server with mongo sharding 
+This is a repository for setting up a MongoDB sharding cluster using Docker Compose. It includes the following components:
 
-you can use this cluster in different servers for high avability  
-just make sure all servers be in same network.
-
+- 3 Configuration Server (configdb)
+- 3 Shards (shard1, shard2, shard3)
+- 3 Router (mongos)
 
 
 **Requirements**
 
 3 server with enough storage for persist data
-docker & docker-compose
+docker 
+docker-compose
 
 
 
