@@ -11,9 +11,9 @@ This is a repository for setting up a MongoDB sharding cluster using Docker Comp
 
 **Requirements**
 
-3 server with enough storage for persist data
-docker 
-docker-compose
+- 3 server with enough storage for persist data
+- docker 
+- docker-compose
 
 
 
